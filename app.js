@@ -1,48 +1,63 @@
 //express
 const express = require('express');
-const app = express();
+//partials/handlebars
+const hbs = require('hbs');
 
+//express
+const app = express();
 //puerto
-const port = 8080;
+const port = process.env.PORT;
+
+//partials/handlebars
+//aqui le decimos que en la carpeta views/partials estan nuestros pedazos de codigo
+hbs.registerPartials(__dirname + '/views/partials');
+
+//handlebars hbs
+app.set('view engine', 'hbs');
 
 //middlware
 //static files
-app.use(express.static('public'))
+app.use(express.static('public'));
+
+//index
+app.get('/', ( req, res) => {
+    res.render('index');
+});
 //about
 app.get('/about', ( req, res) => {
-    res.sendFile( __dirname + '/public/about.html' );
+    res.render('about');
 });
 //appointment
 app.get('/appointment', ( req, res) => {
-    res.sendFile( __dirname + '/public/appointment.html' );
+    res.render('appointment');
 });
 //contact
 app.get('/contact', ( req, res) => {
-    res.sendFile( __dirname + '/public/contact.html' );
+    res.render('contact');
 });
 //opening
 app.get('/opening', ( req, res) => {
-    res.sendFile( __dirname + '/public/opening.html' );
+    res.render('opening');
 });
 //price
 app.get('/price', ( req, res) => {
-    res.sendFile( __dirname + '/public/price.html' );
+    res.render('price');
 });
 //service
 app.get('/service', ( req, res) => {
-    res.sendFile( __dirname + '/public/service.html' );
+    res.render('service');
 });
 //team
 app.get('/team', ( req, res) => {
-    res.sendFile( __dirname + '/public/team.html' );
+    res.render('team');
 });
 //testimonial
 app.get('/testimonial', ( req, res) => {
-    res.sendFile( __dirname + '/public/testimonial.html' );
+    res.render('testimonial');
 });
 //404 PAGINA NO ENCONTRADA
 app.get('*', ( req, res) => {
-    res.sendFile( __dirname + '/public/404.html' );
+    res.render('404');
 });
 
 app.listen(port, () => {
